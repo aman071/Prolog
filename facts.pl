@@ -56,23 +56,27 @@ is_uncle(X,Y) :- parent(Z,Y), is_brother(X,Z).
 is_aunt(X,Y) :- parent(Z,Y), is_sister(X,Z).
 
 
-find_position:-
+/*Program*/
 
-    write("Whose relations do you wish to know? "),nl,
-    read(In),
-    write("Parents: "), parent(Out1, In), write(Out1),nl,
-    write("Children: "), child(Out2, In), write(Out2),nl,
-    write("Grandfather: "), is_grandfather(Out3, In), write(Out3),nl,
-    write("Grandmother: "), is_grandmother(Out4, In), write(Out4),nl,
-    write("First cousin: "), is_firstcousin(Out5, In), write(Out5),nl,
-    write("Husband: "), is_husband(Out6, In), write(Out6),nl,
-    write("Wife: "), is_wife(Out7, In), write(Out7),nl,
-    write("Son: "), is_son(Out8, In), write(Out8),nl,
-    write("Daughter: "), is_daughter(Out9, In), write(Out9),nl,
-    write("Brother: "), is_brother(Out9, In), write(Out9),nl,
-    write("Sister: "), is_sister(Out10, In), write(Out10),nl,
-    write("Siblings: "), siblings(Out11, In), write(Out11),nl,
-    write("Brother-in-law: "), is_brotherinlaw(Out12, In), write(Out12),nl,
-    write("Sister-in-law: "), is_sisterinlaw(Out13, In), write(Out13),nl,
-    write("Uncle: "), is_uncle(Out14, In), write(Out14),nl,
-    write("Aunt: "), is_aunt(Out15, In), write(Out15),nl.
+find_relations :-
+    write("Whose relations do you wish to know? "),nl, read(In),
+    write("Parents: "), parent(Out1, In), write(Out1), write(" "),fail, nl,
+    write("Children: "), child(Out2, In), write(Out2), write(" "), fail;true, nl,
+    write("Grandfather: "), is_grandfather(Out3, In),  write(Out3),write(" "), fail, nl,
+    write("Grandmother: "), is_grandmother(Out4, In),  write(Out4), fail,nl,
+    write("First cousin: "), is_firstcousin(Out5, In), write(Out5), fail,nl,
+    write("Husband: "), is_husband(Out6, In), write(Out6),fail,nl,
+    write("Wife: "), is_wife(Out7, In), write(Out7),fail,nl,
+    write("Son: "), is_son(Out8, In),   write(Out8),fail,nl,
+    write("Daughter: "), is_daughter(Out9, In), write(Out9),fail,nl,
+    write("Brother: "), is_brother(Out10, In),  write(Out10),fail,nl,
+    write("Sister: "), is_sister(Out11, In),    write(Out11),fail,nl,
+    write("Siblings: "), siblings(Out12, In),   write(Out12),fail,nl,
+    write("Brother-in-law: "), is_brotherinlaw(Out13, In), write(Out13),fail,nl,
+    write("Sister-in-law: "), is_sisterinlaw(Out14, In),   write(Out14),fail,nl,
+    write("Uncle: "), is_uncle(Out15, In), write(Out15),fail,nl,
+    write("Aunt: "), is_aunt(Out16, In),  write(Out16),fail,nl.
+
+
+
+
