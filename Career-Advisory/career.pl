@@ -1,3 +1,5 @@
+cls :- write('\e[2J').
+
 welcome:-
     nl,write('Welcome to AI Career Counselor'),nl,
     write('Please enter your branch from the list.'), nl, list_branches,
