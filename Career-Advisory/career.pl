@@ -15,17 +15,19 @@ list_branches:-
 
 
 refer(Branch_id):-
+    nth0(Branch_id, [cse, ece, csd, csss], Elem),
     (   Branch_id =:= 0 ->
-            write('cse')
+            format('You chose ~w', [Elem]),nl,nl,
+            cse
             ;
         Branch_id =:= 1 ->
-            write('ece')
+            format('You chose ~w', [Elem]),nl,nl
             ;
         Branch_id =:= 2 ->
-            write('csd')
+            format('You chose ~w', [Elem]),nl,nl
             ;
         Branch_id =:= 3 ->
-            write('csss')
+            format('You chose ~w', [Elem]),nl,nl
             ;
             write('Incorrect option.'),
             nl,fail
