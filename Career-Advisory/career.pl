@@ -22,7 +22,7 @@ recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 1, Y==1, Z==0), O = 'CSD might 
 
 welcome:-
     nl,write('Welcome to AI Career Counselor'),nl,
-    write('Enter your roll number: '),read(Roll),nl,
+    write('Enter your roll number: '),read(Roll), asserta(getRoll(Roll)),nl,
     write('Please enter your branch from the list.'), nl, list_branches,
     nl,write('Enter number here: '),read(Branch_id),
     refer(Branch_id, Roll).
@@ -35,31 +35,39 @@ list_branches:-
     write('3: CSSS'),nl.
 
 
-refer(Branch_id, Roll):-
+refer(Branch_id):-
     nth0(Branch_id, [cse, ece, csd, csss], Elem),
     (   Branch_id =:= 0 ->
             format('You chose ~w', [Elem]),nl,nl,
-            general_interest(Elem, Roll)
+            getRoll(X),
+            general_interest(Elem, X)
             ;
         Branch_id =:= 1 ->
-            format('You chose ~w', [Elem]),nl,nl
+            format('You chose ~w', [Elem]),nl,nl,
+            getRoll(X),
+            general_interest(Elem, X)
             ;
         Branch_id =:= 2 ->
-            format('You chose ~w', [Elem]),nl,nl
+            format('You chose ~w', [Elem]),nl,nl,
+            getRoll(X),
+            general_interest(Elem, X)
             ;
         Branch_id =:= 3 ->
-            format('You chose ~w', [Elem]),nl,nl
+            format('You chose ~w', [Elem]),nl,nl,
+            getRoll(X),
+            general_interest(Elem, X)
             ;
             write('Incorrect option.'),
             nl,fail
     ).
 
-general_interest(From_branch, Roll):-
+general_interest(From_branch):-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
     write('Would you say you are very proficient at coding? '), read(Code),
     write('Do you like designing? '), read(Des),
     write('Would you say you are very interested Social Science? '), read(Soc),
     write('Would you say you are very proficient at Electronics? '), read(Elec),
+    getRoll(Roll),
     recommend(Code, Des, Soc, Elec, Roll, Out), write(Out), format('Would you like to explore that or go with ~w? ',[From_branch]),
     write('Enter the branch in lower case: '), read(Choice),nl,
     (  Choice == 'csd' ->
@@ -77,6 +85,7 @@ go_to(From_branch):- From_branch == 'csss', csss.
 go_to(From_branch):- From_branch == 'ece', ece.
 
 
+add_knowledge(Answer):- Answer==1, getRoll(X), assert(likes(X,Answer)).
 
 /*debugging, coding, database, web designging, problem solver, logical thinking, problem solving, working with data,
     imagination, creativity, design thinking, user experience, ui design, dealing with people, talking to people, market research
@@ -84,7 +93,14 @@ go_to(From_branch):- From_branch == 'ece', ece.
 */
 
 cse :-
-    write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl.
+    write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
+    write('Do you like debugging code? '), read(Answer), add_knowledge(Answer), nl,
+    write('Do you like coding? '), read(Answer), add_knowledge(Answer), nl,
+    write('Do you like database management? '), read(Answer),  add_knowledge(Answer), nl,
+    write('Do you like problem solving? '), read(Answer),  add_knowledge(Answer), nl,
+    write('Do you like working with data? '), read(Answer), add_knowledge(Answer), nl,
+    write('Do you like debugging code? '), read(Answer), nl, add_knowledge(Answer),nl,
+    write('Do you like debugging code? '), read(Answer), add_knowledge(Answer), nl.
 
 
 
