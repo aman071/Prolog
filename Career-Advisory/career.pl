@@ -102,23 +102,6 @@ check_cse_career :-
     write('5. Khan Academy: Created in 2006 by educator Salman Khan, Khan Academy is one of the original free online-learning institutions. With step-by-step video tutorials, you can  learn how to program drawings, animations and games using JavaScript and ProcessingJS, or learn how to create webpages with HTML and CSS. See, especially, Khan\'s "Hour of Code," designed to introduce students to one hour of computer science and computer programming. '),nl,nl.
 
 check_cse_career :-
-    likes(debug,1),likes(code,1),likes(problem_solving,1), likes(market_research, 1),
-    write('Thank you for your answers! We believe that you answers may allow you to be a good fit for a CSD or CSSS career as well. Would you like to explore that? Write branch name: '),read(Explore),nl,
-    (  Explore == 'csd' ->
-            write(' Going to CSD careers'),nl,
-            csd
-            ;
-       Explore == 'csss' ->
-            write(' Going to CSSS careers'),nl,
-            csss
-            ;
-            write(' Going to CSE careers'),nl,
-            retractall(likes(market_research, _)),
-            go_to(Explore)
-    ).
-
-
-check_cse_career :-
     likes(debug,1),likes(code,1),likes(problem_solving,1),likes(data_analyst,1), likes(dec_making, 1), likes(ml,0),
     write('You are a good fit for the following careers: '),nl,
     write('1. Business Analyst: Analytical people shine when they’re able to critically examine an issue and come up with a solution—a key process in the role of a business analyst.'), nl,
@@ -139,6 +122,20 @@ check_cse_career :-
     write('3. Machine Learning Engineer: A Machine Learning Engineer is an engineer (duh!) that runs various machine learning experiments using programming languages such as Python, Java, Scala, etc. with the appropriate machine learning libraries.  '), nl,
     write('4. NLP Scientist: NLP stands for Natural language processing and it involves giving machines the ability to understand human language. This means that machines can eventually talk with humans in our own language(Need a friend to talk to? Talk with your machine!). An NLP Scientist basically helps in the creation of a machine that can learn patterns of speech and also translate spoken words into other languages. This means that the NLP Scientist should be fluent in the syntax, spelling, and grammar of at least one language in addition to machine learning so that a machine can acquire the same skills. '), nl.
 
+check_alternatives_cse :-
+    likes(debug,1),likes(code,1),likes(problem_solving,1), likes(market_research, 1),
+    write('Thank you for your answers! We believe that you answers may allow you to be a good fit for a CSD or CSSS career as well. Would you like to explore that? Write branch name: '),read(Explore),nl,
+    (  Explore == 'csd' ->
+            write(' Going to CSD careers'),nl,
+            csd
+            ;
+       Explore == 'csss' ->
+            write(' Going to CSSS careers'),nl,
+            csss
+            ;
+            write('Ok.'),nl
+    ).
+
 
 cse :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
@@ -151,7 +148,8 @@ cse :-
     write('Would you say you have good decision-making skills? '), read(Answer7), add_knowledge(dec_making, Answer7), nl,
     write('Would you say you have the ability to communicate the Big Picture? '), read(Answer8), add_knowledge(big_pic, Answer8), nl,
     write('Do you like doing market research? '), read(Answer9), add_knowledge(market_research, Answer9), nl,
-    check_cse_career.
+    check_cse_career,
+    check_alternatives_cse.
 
 check_csd_career :-
     likes(design_thinking,0),nl,
@@ -177,6 +175,16 @@ check_csd_career :-
     write('2. Product designer: Product designers are concerned with both the aesthetics and functionality of a product. When designing or redesigning an object, product designers will consider things like shape, ergonomics, size, color, and weight.'), nl,
     write('4. Video game designer: Video game designers are storytellers, programmers, and visual artists all rolled into one. They are responsible for drawing up video game concepts based on the target audience, and then bringing this concept to life.'), nl.
 
+check_alternatives_csd :-
+    likes(debug,1),likes(code,1),likes(talk_to_user,1), likes(market_research, 1),
+    write('Thank you for your answers! We believe that you answers may allow you to be a good fit for a CSSS career as well. Would you like to explore that? Write branch name: '),read(Explore),nl,
+    (  Explore == 'csss' ->
+            write(' Going to CSD careers'),nl,
+            csss
+            ;
+            write('Ok.'),nl
+    ).
+
 
 csd :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
@@ -189,7 +197,8 @@ csd :-
     write('Do you like talking to users? '), read(Answer16),  add_knowledge(talk_to_user, Answer16), nl,
     write('Do you like doing market research? '), read(Answer17), add_knowledge(market_research, Answer17), nl,
     write('Do you like gaming? '), read(Answer18), add_knowledge(gaming, Answer18), nl,
-    check_csd_career.
+    check_csd_career,
+    check_alternatives_csd.
 
 
 check_csss_career :-
