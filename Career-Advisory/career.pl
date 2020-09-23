@@ -41,16 +41,16 @@ refer(Branch_id):-
     ).
 
 /* code, des, social, electronics */
-recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 1, Y==1, Z==0), O = 'CSD might suit you. ',
+recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 0, Y==0, Z==0), O = 'CSE',
                                            asserta(likes(Roll,code)),asserta(likes(Roll,des)),asserta(likes(Roll,social)), nl.
 
-recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 1, Y==1, Z==0), O = 'CSD might suit you. ',
+recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 1, Y==1, Z==0), O = 'CSD',
                                            asserta(likes(Roll,code)),asserta(likes(Roll,social)), nl.
 
-recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 1, Y==1, Z==0), O = 'CSD might suit you. ',
+recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 0, Y==1, Z==0), O = 'CSSS',
                                            asserta(likes(Roll,social)), nl.
 
-recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 1, Y==1, Z==0), O = 'CSD might suit you. ',
+recommend(W, X, Y, Z, Roll, O)		:- (W == 0, X == 0, Y==0, Z==1), O = 'ECE',
                                            asserta(likes(Roll,code)), nl.
 
 general_interest(From_branch):-
@@ -60,21 +60,17 @@ general_interest(From_branch):-
     write('Would you say you are very interested Social Science? '), read(Soc),
     write('Would you say you are very proficient at Electronics? '), read(Elec),
     getRoll(Roll),
-    recommend(Code, Des, Soc, Elec, Roll, Out), write(Out), format('Would you like to explore that or go with ~w? ',[From_branch]), nl,
-    write('Enter the branch in lower case: '), read(Choice),nl,
-    (  Choice == 'csd' ->
-            write(' Going to CSD careers'),nl,
-            csd
-            ;
-            format('Going forward with ~w',[From_branch]),nl,nl,
+    recommend(Code, Des, Soc, Elec, Roll, Out), format('~w might suit you.',[Out]),
+    format('Would you like to explore that or go with ~w? ',[From_branch]), nl,
+    write('Enter the branch in lower case: '), read(Choice), nl,
+    (  Choice == From_branch ->
+            format('Going forward with ~w',[From_branch]), nl, nl,
             go_to(From_branch)
+            ;
+       Choice == Out ->
+            format(' Going to ~w careers', [Out]),nl,nl,
+            go_to(Out)
     ).
-
-
-/*    debugging, coding, database, web designging, problem solver, logical thinking, problem solving, working with data,
-    imagination, creativity, design thinking, user experience, ui design, dealing with people, talking to people, market research
-    hardware, processors, circuits,
-*/
 
 go_to(From_branch):- From_branch == 'cse', cse.
 go_to(From_branch):- From_branch == 'csd', csd.
@@ -100,7 +96,7 @@ check_cse_career :-
 
 check_cse_career :-
     likes(debug,1),likes(code,1),likes(problem_solving,1), likes(market_research, 1),
-    write('Thank you for your answers! We believe that you answers may allow you to be a good fit for a CSD or CSSS career as well. Would you like to explore that? '),read(Explore),nl,
+    write('Thank you for your answers! We believe that you answers may allow you to be a good fit for a CSD or CSSS career as well. Would you like to explore that? Write branch name: '),read(Explore),nl,
     (  Explore == 'csd' ->
             write(' Going to CSD careers'),nl,
             csd
@@ -109,7 +105,10 @@ check_cse_career :-
             write(' Going to CSSS careers'),nl,
             csss
             ;
-            write(' Going to CSE careers'),nl
+            write(' Going to CSE careers'),nl,
+            retract(likes(market_research, 1)),
+            asserta(likes(market_research, 0)),
+            check_cse_career
     ).
 
 
@@ -175,15 +174,16 @@ check_csd_career :-
 
 csd :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
-    write('Do you like design thinking? '), read(Answer1), add_knowledge(design_thinking, Answer1), nl,
-    write('Do you like coding? '), read(Answer2), add_knowledge(code, Answer2), nl,
-    write('Would you say you have a good imagination? '), read(Answer3),  add_knowledge(imagination, Answer3), nl,
-    write('Would you say you are a creative person? '), read(Answer4),  add_knowledge(creative, Answer4), nl,
-    write('Do you like the domain of user experience? '), read(Answer5), add_knowledge(ux, Answer5), nl,
-    write('Do you like the domain of user interface design? '), read(Answer6), add_knowledge(ui, Answer6), nl,
-    write('Do you like talking to users? '), read(Answer7),  add_knowledge(talk_to_user, Answer7), nl,
-    write('Do you like doing market research? '), read(Answer8), add_knowledge(market_research, Answer8), nl,
-    write('Do you like gaming? '), read(Answer9), add_knowledge(gaming, Answer9), nl.
+    write('Do you like design thinking? '), read(Answer10), add_knowledge(design_thinking, Answer10), nl,
+    write('Do you like coding? '), read(Answer11), add_knowledge(code, Answer11), nl,
+    write('Would you say you have a good imagination? '), read(Answer12),  add_knowledge(imagination, Answer12), nl,
+    write('Would you say you are a creative person? '), read(Answer13),  add_knowledge(creative, Answer13), nl,
+    write('Do you like the domain of user experience? '), read(Answer14), add_knowledge(ux, Answer14), nl,
+    write('Do you like the domain of user interface design? '), read(Answer15), add_knowledge(ui, Answer15), nl,
+    write('Do you like talking to users? '), read(Answer16),  add_knowledge(talk_to_user, Answer16), nl,
+    write('Do you like doing market research? '), read(Answer17), add_knowledge(market_research, Answer17), nl,
+    write('Do you like gaming? '), read(Answer18), add_knowledge(gaming, Answer18), nl,
+    check_csd_career.
 
 
 check_csss_career :-
@@ -196,12 +196,13 @@ check_csss_career :-
 
 csss :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
-    write('Do you like logical reasoning? '), read(Answer1), add_knowledge(logical, Answer1), nl,
-    write('Do you like analytical methods of evaluation? '), read(Answer2), add_knowledge(analytical, Answer2), nl,
-    write('Do you like market research? '), read(Answer3),  add_knowledge(market_research, Answer3), nl,
-    write('Do you like data collection? '), read(Answer4),  add_knowledge(data_collection, Answer4), nl,
-    write('Do you think about solutions from economic, societal, and environment contexts? '), read(Answer5), add_knowledge(context, Answer5),nl,
-    write('Do you like doing Data Analytics? '), read(Answer6), add_knowledge(data_analyst, Answer6), nl.
+    write('Do you like logical reasoning? '), read(Answer19), add_knowledge(logical, Answer19), nl,
+    write('Do you like analytical methods of evaluation? '), read(Answer20), add_knowledge(analytical, Answer20), nl,
+    write('Do you like market research? '), read(Answer21),  add_knowledge(market_research, Answer21), nl,
+    write('Do you like data collection? '), read(Answer22),  add_knowledge(data_collection, Answer22), nl,
+    write('Do you think about solutions from economic, societal, and environment contexts? '), read(Answer23), add_knowledge(context, Answer23),nl,
+    write('Do you like doing Data Analytics? '), read(Answer24), add_knowledge(data_analyst, Answer24), nl,
+    check_csss_career.
 
 check_ece_career :-
     likes(electronics,0),nl,
@@ -226,15 +227,15 @@ check_ece_career :-
 
 ece :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
-    write('Do you like debugging code? '), read(Answer1), add_knowledge(debug, Answer1), nl,
-    write('Do you like coding? '), read(Answer2), add_knowledge(code, Answer2), nl,
-    write('Do you like designing of complicated systems but also testing? '), read(Answer3),  add_knowledge(complicated, Answer3), nl,
-    /*robotics*/
-    write('Do you like designing of controllers, micro-controllers, programmable logic controllers? '), read(Answer4),  add_knowledge(controllers, Answer4), nl,
-    write('Do you like analysis, synthesis, and modification of signals? '), read(Answer5), add_knowledge(signals, Answer5), nl,
-    /*instrumentation*/
-    write('Do you like physics? '), read(Answer6), add_knowledge(physics, Answer6), nl,
-    write('Do you enjoy Electronics? '), read(Answer7), add_knowledge(electronics, Answer7), nl.
+    write('Do you like debugging code? '), read(Answer25), add_knowledge(debug, Answer25), nl,
+    write('Do you like coding? '), read(Answer25), add_knowledge(code, Answer25), nl,
+    write('Do you like designing of complicated systems but also testing? '), read(Answer26),  add_knowledge(complicated, Answer26), nl,
+    write('Do you like designing of controllers, micro-controllers, programmable logic controllers? '), read(Answer27),  add_knowledge(controllers, Answer27), nl,
+    write('Do you like analysis, synthesis, and modification of signals? '), read(Answer28), add_knowledge(signals, Answer28), nl,
+    write('Do you like physics? '), read(Answer29), add_knowledge(physics, Answer29), nl,
+    write('Do you enjoy Electronics? '), read(Answer30), add_knowledge(electronics, Answer30), nl,
+    check_ece_career.
     /*Why Six Sigma for ECE professionals. How does it help? Six Sigma is a customer-centric manufacturing approach to realizing fewer defects and thus lowering costs and increasing customer satisfaction.
 
 The engineering fraternity is greatly benefited from Six Sigma certification as it helps to break down a task into a much-simplified form. It will provide tools and techniques to standardize work methods thus reducing rework and wastage.*/
+
