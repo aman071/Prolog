@@ -10,7 +10,6 @@ list_branches:-
 
 
 welcome:-
-    retract(likes(_,_)),
     write('Welcome to AI Career Counselor'),nl,nl,
     write('Enter your roll number: '),read(Roll), asserta(getRoll(Roll)),nl,
     write('Please enter your branch from the list.'), nl, list_branches,
@@ -163,7 +162,7 @@ check_csd_career :-
     write('4. DesignLab: DesignLab is an ideal online graphic design learning platform for you. The platform provides users with complete hands-on projects to help them grasp the designing concepts. '), nl.
 
 check_csd_career :-
-    likes(design_thinking,1), likes(code, 1), likes(ui, 1), likes(gaming, 0), nl,
+    likes(design_thinking, 1), likes(code, 1), likes(ui, 1), likes(gaming, 0), nl,
     write('You are a good fit for the following careers: '),nl,
     write('1. Graphic designer: These professionals create designs for marketing collateral, product illustrations, brand identities and websites using computer software like the Adobe® Creative Suite. They merge technical skill with artistic ability to create a design that resonates with its desired audience. Graphic designers may work independently as freelancers or contractors, in an in-house setting for a company or in an agency setting.'), nl,
     write('2. UI designer: User interface design is, in fact, a crucial subset of UX—but it’s important to recognize that they are two separate roles. UI design focuses on the user’s visual experience, determining how they interact with the product interface.'), nl,
