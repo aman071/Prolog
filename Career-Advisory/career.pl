@@ -219,14 +219,14 @@ check_ece_career :-
     write('4. Arduino: Arduino is an “open-source electronics prototyping platform based on flexible, easy-to-use hardware and software.” The best part about Arduino is that they provide materials for purchase as well as free online video tutorials so that beginners in electrical engineering can gain hands-on experience and practice.'), nl.
 
 check_ece_career :-
-    likes(debug,1), likes(code, 1), likes(complicated, 1), likes(robotics, 0), nl,
+    likes(debug,1), likes(code, 1), likes(complicated, 1), likes(controllers, 0), nl,
     write('You are a good fit for the following careers: '),nl,
     write('1. System control engineer: This job includes not only the designing of complicated systems but also testing of it. This is one of the reasons why the candidates for this profile are recruited as technical supervisors, system control managers, etc.'), nl,
     write('2. Technical Advisor: They are responsible for providing assistance in developing and implementing program reviews. They advise and share expertise with Technicians. The role also involves defining and developing applications for electrical and technical designs.'), nl,
     write('3. Embedded System Developer: Embedded means something which is attached to another thing. It can be thought of as computer hardware having software embedded/attached into it.'), nl.
 
 check_ece_career :-
-    likes(debug,1), likes(code, 1), likes(robotics, 1), likes(controllers, 1), nl,
+    likes(debug,1), likes(code, 1), likes(controllers, 1), likes(signals, 1), nl,
     write('You are a good fit for the following careers: '),nl,
     write('1. Mechatronics: Mechatronics is the field of study integrating mechanical and electronics principles onto a single device. Industry 4.0 is already here and it is transforming the way companies are automating their business process.'), nl,
     write('2. Robotic Processes Engineer: Robots can do tasks precisely like humans without human intervention. Now, most of the companies are turning their focus towards robots rather than humans to perform specific jobs just to reduce their expenses and to increase productivity.'), nl.
