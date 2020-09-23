@@ -10,12 +10,13 @@ list_branches:-
 
 
 welcome:-
-    nl,write('Welcome to AI Career Counselor'),nl,
+    retract(likes(_,_)),
+    write('Welcome to AI Career Counselor'),nl,nl,
     write('Enter your roll number: '),read(Roll), asserta(getRoll(Roll)),nl,
     write('Please enter your branch from the list.'), nl, list_branches,
     nl,write('Enter number here: '),read(Branch_id),
     refer(Branch_id),
-    retractall(likes(Roll,_,_)).
+    retractall(likes(_,_)).
 
 
 refer(Branch_id):-
@@ -41,16 +42,16 @@ refer(Branch_id):-
     ).
 
 /* code, des, social, electronics */
-recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 0, Y==0, Z==0), O = 'CSE',
+recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 0, Y==0, Z==0), O = 'cse',
                                            asserta(likes(Roll,code)),asserta(likes(Roll,des)),asserta(likes(Roll,social)), nl.
 
-recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 1, Y==1, Z==0), O = 'CSD',
+recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 1, Y==1, Z==0), O = 'csd',
                                            asserta(likes(Roll,code)),asserta(likes(Roll,social)), nl.
 
-recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 0, Y==1, Z==0), O = 'CSSS',
+recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 0, Y==1, Z==0), O = 'csss',
                                            asserta(likes(Roll,social)), nl.
 
-recommend(W, X, Y, Z, Roll, O)		:- (W == 0, X == 0, Y==0, Z==1), O = 'ECE',
+recommend(W, X, Y, Z, Roll, O)		:- (W == 0, X == 0, Y==0, Z==1), O = 'ece',
                                            asserta(likes(Roll,code)), nl.
 
 general_interest(From_branch):-
@@ -60,16 +61,23 @@ general_interest(From_branch):-
     write('Would you say you are very interested Social Science? '), read(Soc),
     write('Would you say you are very proficient at Electronics? '), read(Elec),
     getRoll(Roll),
-    recommend(Code, Des, Soc, Elec, Roll, Out), format('~w might suit you.',[Out]),
-    format('Would you like to explore that or go with ~w? ',[From_branch]), nl,
-    write('Enter the branch in lower case: '), read(Choice), nl,
-    (  Choice == From_branch ->
-            format('Going forward with ~w',[From_branch]), nl, nl,
-            go_to(From_branch)
-            ;
-       Choice == Out ->
-            format(' Going to ~w careers', [Out]),nl,nl,
-            go_to(Out)
+    recommend(Code, Des, Soc, Elec, Roll, Out),
+    (  Out == From_branch ->
+             write('Interests match! Great!'),
+             format(' Going to ~w careers', [Out]),nl,nl,
+             go_to(Out)
+             ;
+             format('~w might suit you.',[Out]),
+             format('Would you like to explore that or go with ~w? ',[From_branch]), nl,
+             write('Enter the branch in lower case: '), read(Choice), nl,
+            (  Choice == From_branch ->
+                         format('Going forward with ~w',[From_branch]), nl, nl,
+                         go_to(From_branch)
+                         ;
+               Choice == Out ->
+                         format(' Going to ~w careers', [Out]),nl,nl,
+                         go_to(Out)
+            )
     ).
 
 go_to(From_branch):- From_branch == 'cse', cse.
@@ -87,12 +95,12 @@ add_knowledge(What,Answer):- assert(likes(What,Answer)).
 
 check_cse_career :-
     likes(debug,0),likes(code,0),nl,
-    write('See, we understand that you might not feel proficient at coding right now. However, the ability to code and debug problems, as well as loving what you do is critical to succeeding in this field. Coding is fun, and you should try to actually enjoy the process. We can make some recommendations for you to practice these skills.'),nl,
-    write('1. 1. Codeacademy: One of the most popular free places to learn coding is Codeacademy. In fact, more than 45 million people have already learned how to code through this educational company’s engaging experience. '),nl,
-    write('Coursera: Founded in 2012, Coursera has grown into a major for-profit educational-technology company that has offered more than 1,000 courses from 119 institutions.'),nl,
-    write('3. edX: EdX is another leading online-learning platform that is open source instead of for-profit. It was founded by Harvard University and MIT in 2012, so you know that you’ll learn about cutting-edge technologies and theories. Today, edX includes 53 schools. You probably can’t go wrong with the free Introduction to Computer Science from Harvard University.'),nl,
-    write('4. Udemy: Founded in 2010, Udemy is an online learning platform that can be used as a way to improve or learn job skills. While there are courses you have to pay for, there are plenty of free programming courses, which are taught via video lessons, such as Programming for Entrepreneurs '), nl,
-    write('5. Khan Academy: Created in 2006 by educator Salman Khan, Khan Academy is one of the original free online-learning institutions. With step-by-step video tutorials, you can  learn how to program drawings, animations and games using JavaScript and ProcessingJS, or learn how to create webpages with HTML and CSS. See, especially, Khan\'s "Hour of Code," designed to introduce students to one hour of computer science and computer programming. '),nl.
+    write('See, we understand that you might not feel proficient at coding right now. However, the ability to code and debug problems, as well as loving what you do is critical to succeeding in this field. Coding is fun, and you should try to actually enjoy the process. We can make some recommendations for you to practice these skills.'),nl,nl,
+    write('1. Codeacademy: One of the most popular free places to learn coding is Codeacademy. In fact, more than 45 million people have already learned how to code through this educational company’s engaging experience. '),nl,nl,
+    write('Coursera: Founded in 2012, Coursera has grown into a major for-profit educational-technology company that has offered more than 1,000 courses from 119 institutions.'),nl,nl,
+    write('3. edX: EdX is another leading online-learning platform that is open source instead of for-profit. It was founded by Harvard University and MIT in 2012, so you know that you’ll learn about cutting-edge technologies and theories. Today, edX includes 53 schools. You probably can’t go wrong with the free Introduction to Computer Science from Harvard University.'),nl,nl,
+    write('4. Udemy: Founded in 2010, Udemy is an online learning platform that can be used as a way to improve or learn job skills. While there are courses you have to pay for, there are plenty of free programming courses, which are taught via video lessons, such as Programming for Entrepreneurs '), nl,nl,
+    write('5. Khan Academy: Created in 2006 by educator Salman Khan, Khan Academy is one of the original free online-learning institutions. With step-by-step video tutorials, you can  learn how to program drawings, animations and games using JavaScript and ProcessingJS, or learn how to create webpages with HTML and CSS. See, especially, Khan\'s "Hour of Code," designed to introduce students to one hour of computer science and computer programming. '),nl,nl.
 
 check_cse_career :-
     likes(debug,1),likes(code,1),likes(problem_solving,1), likes(market_research, 1),
@@ -106,9 +114,8 @@ check_cse_career :-
             csss
             ;
             write(' Going to CSE careers'),nl,
-            retract(likes(market_research, 1)),
-            asserta(likes(market_research, 0)),
-            check_cse_career
+            retractall(likes(market_research, _)),
+            go_to(Explore)
     ).
 
 
@@ -143,7 +150,7 @@ cse :-
     write('Do you like working with data? '), read(Answer5), add_knowledge(data_analyst, Answer5), nl,
     write('Do you like Machine Learning? '), read(Answer6), add_knowledge(ml, Answer6), nl,
     write('Would you say you have good decision-making skills? '), read(Answer7), add_knowledge(dec_making, Answer7), nl,
-    write('Would you say you have the ability to Communicate the Big Picture? '), read(Answer8), add_knowledge(big_pic, Answer8), nl,
+    write('Would you say you have the ability to communicate the Big Picture? '), read(Answer8), add_knowledge(big_pic, Answer8), nl,
     write('Do you like doing market research? '), read(Answer9), add_knowledge(market_research, Answer9), nl,
     check_cse_career.
 
