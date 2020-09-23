@@ -185,31 +185,13 @@ csd :-
     write('Do you like doing market research? '), read(Answer8), add_knowledge(market_research, Answer8), nl,
     write('Do you like gaming? '), read(Answer9), add_knowledge(gaming, Answer9), nl.
 
-check_csd_career :-
-    likes(design_thinking,0),nl,
-    write('See, we understand that you might not feel very confident in design thinking right now. It is a process, a mindset which takes time to develop. However, that mindset is crucial for this field. As well as loving what you do is critical. It is a very fulfilling process or going from ideation to product, making products or services for users so that you can improve their lives. You should try to actually enjoy the process. We can make some recommendations for you to practice these skills.'),nl,
-    write('1. Udemy: Introduction to Graphic Design: Udemy, as most of you already know, is an online learning platform aimed at professionals, catering courses created by experts. The platform is filled with amazing courses whose legibility you can judge by the number of people who have rated/taken the course. '),nl,
-    write('2. Skillshare: Skillshare is another online learning platform, but it also doubles as a community for creative individuals. It offers plenty of graphic design courses, all of which can be readily accessed by a subscription plan. You don’t have to pay for the courses individually, but through a single monthly subscription fee, you get access to all of Skillshares content.'),nl,
-    write('3. Hackdesign.org: Hackdesign offers one of the most complete and structured online course for learning graphic designing. If you want to explore this skill but don’t feel like investing, then you will find Hack Design to offer the perfect solution. You will get access to a number of links and posts, all of which are well structured.'),nl,
-    write('4. DesignLab: DesignLab is an ideal online graphic design learning platform for you. The platform provides users with complete hands-on projects to help them grasp the designing concepts. '), nl.
 
-check_csd_career :-
-    likes(design_thinking,1), likes(code, 1), likes(ui, 1), likes(gaming, 0), nl,
+check_csss_career :-
+    likes(market_research,1), likes(data_collection, 1), likes(data_analyst, 1), likes(analytical, 1), nl,
     write('You are a good fit for the following careers: '),nl,
-    write('1. Graphic designer: These professionals create designs for marketing collateral, product illustrations, brand identities and websites using computer software like the Adobe® Creative Suite. They merge technical skill with artistic ability to create a design that resonates with its desired audience. Graphic designers may work independently as freelancers or contractors, in an in-house setting for a company or in an agency setting.'), nl,
-    write('2. UI designer: User interface design is, in fact, a crucial subset of UX—but it’s important to recognize that they are two separate roles. UI design focuses on the user’s visual experience, determining how they interact with the product interface.'), nl,
-    write('3. Web designer: Often described as the graphic designers of the digital world, they are responsible for planning, designing, and building websites, calling on a mixture of both technical and creative skills. The art lies in understanding the client’s vision and turning it into a visually compelling, fully functional website.'), nl,
-    write('4. NLP Scientist: NLP stands for Natural language processing and it involves giving machines the ability to understand human language. This means that machines can eventually talk with humans in our own language(Need a friend to talk to? Talk with your machine!). An NLP Scientist basically helps in the creation of a machine that can learn patterns of speech and also translate spoken words into other languages. This means that the NLP Scientist should be fluent in the syntax, spelling, and grammar of at least one language in addition to machine learning so that a machine can acquire the same skills. '), nl.
-
-
-check_csd_career :-
-    likes(design_thinking,1), likes(code, 1), likes(ux, 1), likes(gaming,1), nl,
-    write('You are a good fit for the following careers: '),nl,
-    write('1. UX designer:  They conduct extensive research into the customer’s needs and use these findings to make smart design decisions.'), nl,
-    write('2. Product designer: Product designers are concerned with both the aesthetics and functionality of a product. When designing or redesigning an object, product designers will consider things like shape, ergonomics, size, color, and weight.'), nl,
-    write('4. Video game designer: Video game designers are storytellers, programmers, and visual artists all rolled into one. They are responsible for drawing up video game concepts based on the target audience, and then bringing this concept to life.'), nl.
-
-
+    write('1. Survey Researcher: Survey researchers find employment in academic institutions, nonprofit organizations, corporations, research firms, government agencies and polling organizations. The surveys they create may cover a wide range of topics, from scientific to political and social to economic. Survey researchers are professionals who specialize in creating quality surveys and interpreting the information that results. '), nl,
+    write('2. Data Warehouse Specialist: A data warehouse specialist works with teams of computer gurus, designing and implementing systems that solve specific client problems. You also make sure the system is maintained, reconciled, updated, and backed up as needed.'), nl,
+    write('3. Data Architect: Data Architects ensure the complete and successful building and integration of data systems and all of their components. With careful architecture, they ensure the implementation, organization, and reliability of those systems.'), nl.
 
 csss :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
@@ -219,6 +201,31 @@ csss :-
     write('Do you like data collection? '), read(Answer4),  add_knowledge(data_collection, Answer4), nl,
     write('Do you think about solutions from economic, societal, and environment contexts? '), read(Answer5), add_knowledge(context, Answer5),nl,
     write('Do you like doing Data Analytics? '), read(Answer6), add_knowledge(data_analyst, Answer6), nl.
+
+check_ece_career :-
+    likes(design_thinking,0),nl,
+    write('See, we understand that you might not feel very confident in design thinking right now. It is a process, a mindset which takes time to develop. However, that mindset is crucial for this field. As well as loving what you do is critical. It is a very fulfilling process or going from ideation to product, making products or services for users so that you can improve their lives. You should try to actually enjoy the process. We can make some recommendations for you to practice these skills.'),nl,
+    write('1. Udemy: Introduction to Graphic Design: Udemy, as most of you already know, is an online learning platform aimed at professionals, catering courses created by experts. The platform is filled with amazing courses whose legibility you can judge by the number of people who have rated/taken the course. '),nl,
+    write('2. Skillshare: Skillshare is another online learning platform, but it also doubles as a community for creative individuals. It offers plenty of graphic design courses, all of which can be readily accessed by a subscription plan. You don’t have to pay for the courses individually, but through a single monthly subscription fee, you get access to all of Skillshares content.'),nl,
+    write('3. Hackdesign.org: Hackdesign offers one of the most complete and structured online course for learning graphic designing. If you want to explore this skill but don’t feel like investing, then you will find Hack Design to offer the perfect solution. You will get access to a number of links and posts, all of which are well structured.'),nl,
+    write('4. DesignLab: DesignLab is an ideal online graphic design learning platform for you. The platform provides users with complete hands-on projects to help them grasp the designing concepts. '), nl.
+
+check_ece_career :-
+    likes(design_thinking,1), likes(code, 1), likes(ui, 1), likes(gaming, 0), nl,
+    write('You are a good fit for the following careers: '),nl,
+    write('1. Graphic designer: These professionals create designs for marketing collateral, product illustrations, brand identities and websites using computer software like the Adobe® Creative Suite. They merge technical skill with artistic ability to create a design that resonates with its desired audience. Graphic designers may work independently as freelancers or contractors, in an in-house setting for a company or in an agency setting.'), nl,
+    write('2. UI designer: User interface design is, in fact, a crucial subset of UX—but it’s important to recognize that they are two separate roles. UI design focuses on the user’s visual experience, determining how they interact with the product interface.'), nl,
+    write('3. Web designer: Often described as the graphic designers of the digital world, they are responsible for planning, designing, and building websites, calling on a mixture of both technical and creative skills. The art lies in understanding the client’s vision and turning it into a visually compelling, fully functional website.'), nl,
+    write('4. NLP Scientist: NLP stands for Natural language processing and it involves giving machines the ability to understand human language. This means that machines can eventually talk with humans in our own language(Need a friend to talk to? Talk with your machine!). An NLP Scientist basically helps in the creation of a machine that can learn patterns of speech and also translate spoken words into other languages. This means that the NLP Scientist should be fluent in the syntax, spelling, and grammar of at least one language in addition to machine learning so that a machine can acquire the same skills. '), nl.
+
+
+check_ece_career :-
+    likes(design_thinking,1), likes(code, 1), likes(ux, 1), likes(gaming,1), nl,
+    write('You are a good fit for the following careers: '),nl,
+    write('1. UX designer:  They conduct extensive research into the customer’s needs and use these findings to make smart design decisions.'), nl,
+    write('2. Product designer: Product designers are concerned with both the aesthetics and functionality of a product. When designing or redesigning an object, product designers will consider things like shape, ergonomics, size, color, and weight.'), nl,
+    write('4. Video game designer: Video game designers are storytellers, programmers, and visual artists all rolled into one. They are responsible for drawing up video game concepts based on the target audience, and then bringing this concept to life.'), nl.
+
 
 ece :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
