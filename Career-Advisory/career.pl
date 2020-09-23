@@ -214,26 +214,20 @@ check_ece_career :-
 check_ece_career :-
     likes(debug,1), likes(code, 1), likes(complicated, 1), likes(robotics, 0), nl,
     write('You are a good fit for the following careers: '),nl,
-    write('1. Graphic designer: These professionals create designs for marketing collateral, product illustrations, brand identities and websites using computer software like the Adobe® Creative Suite. They merge technical skill with artistic ability to create a design that resonates with its desired audience. Graphic designers may work independently as freelancers or contractors, in an in-house setting for a company or in an agency setting.'), nl,
-    write('2. UI designer: User interface design is, in fact, a crucial subset of UX—but it’s important to recognize that they are two separate roles. UI design focuses on the user’s visual experience, determining how they interact with the product interface.'), nl,
-    write('3. Web designer: Often described as the graphic designers of the digital world, they are responsible for planning, designing, and building websites, calling on a mixture of both technical and creative skills. The art lies in understanding the client’s vision and turning it into a visually compelling, fully functional website.'), nl,
-    write('4. NLP Scientist: NLP stands for Natural language processing and it involves giving machines the ability to understand human language. This means that machines can eventually talk with humans in our own language(Need a friend to talk to? Talk with your machine!). An NLP Scientist basically helps in the creation of a machine that can learn patterns of speech and also translate spoken words into other languages. This means that the NLP Scientist should be fluent in the syntax, spelling, and grammar of at least one language in addition to machine learning so that a machine can acquire the same skills. '), nl.
-
+    write('1. System control engineer: This job includes not only the designing of complicated systems but also testing of it. This is one of the reasons why the candidates for this profile are recruited as technical supervisors, system control managers, etc.'), nl,
+    write('2. Technical Advisor: They are responsible for providing assistance in developing and implementing program reviews. They advise and share expertise with Technicians. The role also involves defining and developing applications for electrical and technical designs.'), nl,
+    write('3. Embedded System Developer: Embedded means something which is attached to another thing. It can be thought of as computer hardware having software embedded/attached into it.'), nl.
 
 check_ece_career :-
-    likes(design_thinking,1), likes(code, 1), likes(ux, 1), likes(gaming,1), nl,
+    likes(debug,1), likes(code, 1), likes(robotics, 1), likes(controllers, 1), nl,
     write('You are a good fit for the following careers: '),nl,
-    write('1. UX designer:  They conduct extensive research into the customer’s needs and use these findings to make smart design decisions.'), nl,
-    write('2. Product designer: Product designers are concerned with both the aesthetics and functionality of a product. When designing or redesigning an object, product designers will consider things like shape, ergonomics, size, color, and weight.'), nl,
-    write('4. Video game designer: Video game designers are storytellers, programmers, and visual artists all rolled into one. They are responsible for drawing up video game concepts based on the target audience, and then bringing this concept to life.'), nl.
-
+    write('1. Mechatronics: Mechatronics is the field of study integrating mechanical and electronics principles onto a single device. Industry 4.0 is already here and it is transforming the way companies are automating their business process.'), nl,
+    write('2. Robotic Processes Engineer: Robots can do tasks precisely like humans without human intervention. Now, most of the companies are turning their focus towards robots rather than humans to perform specific jobs just to reduce their expenses and to increase productivity.'), nl.
 
 ece :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
-    /*desktop suport*/
     write('Do you like debugging code? '), read(Answer1), add_knowledge(debug, Answer1), nl,
     write('Do you like coding? '), read(Answer2), add_knowledge(code, Answer2), nl,
-    /*system control, technical advisor */
     write('Do you like designing of complicated systems but also testing? '), read(Answer3),  add_knowledge(complicated, Answer3), nl,
     /*robotics*/
     write('Do you like designing of controllers, micro-controllers, programmable logic controllers? '), read(Answer4),  add_knowledge(controllers, Answer4), nl,
