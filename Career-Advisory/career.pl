@@ -1,6 +1,18 @@
 cls :- write('\e[2J').
 
-add(X,List,[X|List]).
+
+add(X, [], [X]).
+add(X, [Y|Tail], [Y|Tail1]):- add(X,Tail,Tail1).
+
+
+mergeList([],L,L).
+mergeList([X|Tail],List2,[X|Tail1]):-
+    mergeList(Tail,List2,Tail1).
+
+
+printlist([]).
+printlist([X|List]) :- write(X), nl, nl, printlist(List).
+
 
 list_branches:-
     write('0: CSE'),nl,
@@ -12,6 +24,8 @@ list_branches:-
 welcome:-
     write('Welcome to AI Career Counselor'),nl,nl,
     write('Enter your roll number: '),read(Roll), asserta(getRoll(Roll)),nl,
+    add('Done',[],List),
+    asserta(getList(List)),
     write('Please enter your branch from the list.'), nl, list_branches,
     nl,write('Enter number here: '),read(Branch_id),
     refer(Branch_id),
@@ -39,6 +53,7 @@ refer(Branch_id):-
             write('Incorrect option.'),
             nl,fail
     ).
+
 
 /* code, des, social, electronics */
 recommend(W, X, Y, Z, Roll, O)		:- (W == 1, X == 0, Y==0, Z==0), O = 'cse',
@@ -92,7 +107,7 @@ add_knowledge(What,Answer):- assert(likes(What,Answer)).
     hardware, processors, circuits,
 */
 
-check_cse_career :-
+check_cse_career(List) :-
     likes(debug,0),likes(code,0),nl,
     write('See, we understand that you might not feel proficient at coding right now. However, the ability to code and debug problems, as well as loving what you do is critical to succeeding in this field. Coding is fun, and you should try to actually enjoy the process. We can make some recommendations for you to practice these skills.'),nl,nl,
     write('1. Codeacademy: One of the most popular free places to learn coding is Codeacademy. In fact, more than 45 million people have already learned how to code through this educational company’s engaging experience. '),nl,nl,
@@ -101,19 +116,20 @@ check_cse_career :-
     write('4. Udemy: Founded in 2010, Udemy is an online learning platform that can be used as a way to improve or learn job skills. While there are courses you have to pay for, there are plenty of free programming courses, which are taught via video lessons, such as Programming for Entrepreneurs '), nl,nl,
     write('5. Khan Academy: Created in 2006 by educator Salman Khan, Khan Academy is one of the original free online-learning institutions. With step-by-step video tutorials, you can  learn how to program drawings, animations and games using JavaScript and ProcessingJS, or learn how to create webpages with HTML and CSS. See, especially, Khan\'s "Hour of Code," designed to introduce students to one hour of computer science and computer programming. '),nl,nl.
 
-check_cse_career :-
+/*list in this*/
+check_cse_career(List) :-
     likes(debug,1),likes(code,1),likes(problem_solving,1),likes(data_analyst,1), likes(dec_making, 1), likes(ml,0),
     write('You are a good fit for the following careers: '),nl,
-    write('1. Business Analyst: Analytical people shine when they’re able to critically examine an issue and come up with a solution—a key process in the role of a business analyst.'), nl,
+    write('1. Business Analyst: Analytical people shine when they’re able to critically examine an issue and come up with a solution—a key process in the role of a business analyst.'), nl, add('Business Analyst',[],List1),
     write('2. Accountant: Analytical brains often go hand in hand with a love of facts and figures, making them a natural fit for accounting. Attention to detail will prove extremely useful when interpreting and analysing financial data for clients.'), nl,
-    write('3. Logistics Manager: It can take a hefty amount of data to manage the large-scale storage and distribution of goods, and to ensure a supply chain runs effectively. '), nl,
-    write('4. Data Engineer: Data engineers build massive reservoirs for data and are key in managing those reservoirs as well as the data churned out by our digital activities. They develop, construct, test, and maintain data-storing architecture — like databases and large-scale data processing systems. '), nl,
-    write('5. Software Developer/Engineer: Software developers design or customize software (usually for computers but potentially for a range of machinery or hardware). They are involved in optimizing existing software to improve efficiency or overcome problems. An important part of their job is to evaluate software requirements and user needs to determine software feasibility.'),nl,
-    write('6. Web Developer: Web developers design and build websites – back-end developers design the technical construction and overall framework for a site, whereas front end developers are responsible for how a website looks. They spot and correct bugs identified through testing or user feedback. Developers integrate graphics, audio and video into the website and create and test web applications.'),nl.
+    write('3. Logistics Manager: It can take a hefty amount of data to manage the large-scale storage and distribution of goods, and to ensure a supply chain runs effectively. '), nl, add('Accountant',List1,List2),
+    write('4. Data Engineer: Data engineers build massive reservoirs for data and are key in managing those reservoirs as well as the data churned out by our digital activities. They develop, construct, test, and maintain data-storing architecture — like databases and large-scale data processing systems. '), nl, add('Data Engineer',List2,List3),
+    write('5. Software Developer/Engineer: Software developers design or customize software (usually for computers but potentially for a range of machinery or hardware). They are involved in optimizing existing software to improve efficiency or overcome problems. An important part of their job is to evaluate software requirements and user needs to determine software feasibility.'),nl, add('SDE',List3,List4),
+    write('6. Web Developer: Web developers design and build websites – back-end developers design the technical construction and overall framework for a site, whereas front end developers are responsible for how a website looks. They spot and correct bugs identified through testing or user feedback. Developers integrate graphics, audio and video into the website and create and test web applications.'),nl, add('Web Developer',List4,List).
+/*    mergeList(List5, List, List6), retract(getList(_)), asserta(getList(List6)).*/
 
 
-
-check_cse_career :-
+check_cse_career(List) :-
     likes(debug,1),likes(code,1),likes(problem_solving,1),likes(data_analyst,1), likes(dec_making, 1), likes(big_pic, 1), likes(ml,1),
 
     write('You are a good fit for the following careers: '),nl,
@@ -136,6 +152,9 @@ check_alternatives_cse :-
             write('Ok.'),nl
     ).
 
+check_alternatives_cse :-
+    write('We have analyzed your interests, and made our recommendations. With your current choices, there are no more recommendations for you at this point.All the best!'),nl,nl.
+
 
 cse :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
@@ -148,10 +167,12 @@ cse :-
     write('Would you say you have good decision-making skills? '), read(Answer7), add_knowledge(dec_making, Answer7), nl,
     write('Would you say you have the ability to communicate the Big Picture? '), read(Answer8), add_knowledge(big_pic, Answer8), nl,
     write('Do you like doing market research? '), read(Answer9), add_knowledge(market_research, Answer9), nl,
-    check_cse_career,
-    check_alternatives_cse.
+    check_cse_career(List),
+    check_alternatives_cse,
+    printlist(List),nl.
 
-check_csd_career :-
+
+check_csd_career(List_csd) :-
     likes(design_thinking,0),nl,
     write('See, we understand that you might not feel very confident in design thinking right now. It is a process, a mindset which takes time to develop. However, that mindset is crucial for this field. As well as loving what you do is critical. It is a very fulfilling process or going from ideation to product, making products or services for users so that you can improve their lives. You should try to actually enjoy the process. We can make some recommendations for you to practice these skills.'),nl,
     write('1. Udemy: Introduction to Graphic Design: Udemy, as most of you already know, is an online learning platform aimed at professionals, catering courses created by experts. The platform is filled with amazing courses whose legibility you can judge by the number of people who have rated/taken the course. '),nl,
@@ -159,7 +180,7 @@ check_csd_career :-
     write('3. Hackdesign.org: Hackdesign offers one of the most complete and structured online course for learning graphic designing. If you want to explore this skill but don’t feel like investing, then you will find Hack Design to offer the perfect solution. You will get access to a number of links and posts, all of which are well structured.'),nl,
     write('4. DesignLab: DesignLab is an ideal online graphic design learning platform for you. The platform provides users with complete hands-on projects to help them grasp the designing concepts. '), nl.
 
-check_csd_career :-
+check_csd_career(List_csd) :-
     likes(design_thinking, 1), likes(code, 1), likes(ui, 1), likes(gaming, 0), nl,
     write('You are a good fit for the following careers: '),nl,
     write('1. Graphic designer: These professionals create designs for marketing collateral, product illustrations, brand identities and websites using computer software like the Adobe® Creative Suite. They merge technical skill with artistic ability to create a design that resonates with its desired audience. Graphic designers may work independently as freelancers or contractors, in an in-house setting for a company or in an agency setting.'), nl,
@@ -168,12 +189,14 @@ check_csd_career :-
     write('4. NLP Scientist: NLP stands for Natural language processing and it involves giving machines the ability to understand human language. This means that machines can eventually talk with humans in our own language(Need a friend to talk to? Talk with your machine!). An NLP Scientist basically helps in the creation of a machine that can learn patterns of speech and also translate spoken words into other languages. This means that the NLP Scientist should be fluent in the syntax, spelling, and grammar of at least one language in addition to machine learning so that a machine can acquire the same skills. '), nl.
 
 
-check_csd_career :-
+check_csd_career(List_csd) :-
     likes(design_thinking,1), likes(code, 1), likes(ux, 1), likes(gaming,1), nl,
     write('You are a good fit for the following careers: '),nl,
     write('1. UX designer:  They conduct extensive research into the customer’s needs and use these findings to make smart design decisions.'), nl,
-    write('2. Product designer: Product designers are concerned with both the aesthetics and functionality of a product. When designing or redesigning an object, product designers will consider things like shape, ergonomics, size, color, and weight.'), nl,
-    write('4. Video game designer: Video game designers are storytellers, programmers, and visual artists all rolled into one. They are responsible for drawing up video game concepts based on the target audience, and then bringing this concept to life.'), nl.
+    add('UX Designer',[],List6),
+    write('2. Product designer: Product designers are concerned with both the aesthetics and functionality of a product. When designing or redesigning an object, product designers will consider things like shape, ergonomics, size, color, and weight.'), nl, add('Product Designer',List6,List7),
+    write('4. Video game designer: Video game designers are storytellers, programmers, and visual artists all rolled into one. They are responsible for drawing up video game concepts based on the target audience, and then bringing this concept to life.'), add('Video Game Designer',List7, List_csd), nl.
+
 
 check_alternatives_csd :-
     likes(debug,1),likes(code,1),likes(talk_to_user,1), likes(market_research, 1),
@@ -184,6 +207,9 @@ check_alternatives_csd :-
             ;
             write('Ok.'),nl
     ).
+
+check_alternatives_csd :-
+    write('Thank you for your answers! Based on your answers we have made our recommendations. There are no further recommendations with the options you have chosen. All the best!'),nl.
 
 
 csd :-
@@ -197,8 +223,10 @@ csd :-
     write('Do you like talking to users? '), read(Answer16),  add_knowledge(talk_to_user, Answer16), nl,
     write('Do you like doing market research? '), read(Answer17), add_knowledge(market_research, Answer17), nl,
     write('Do you like gaming? '), read(Answer18), add_knowledge(gaming, Answer18), nl,
-    check_csd_career,
-    check_alternatives_csd.
+    check_csd_career(List_csd),
+    check_alternatives_csd,
+    printlist(List_csd),nl.
+
 
 
 check_csss_career :-
@@ -250,7 +278,3 @@ ece :-
     write('Do you like physics? '), read(Answer29), add_knowledge(physics, Answer29), nl,
     write('Do you enjoy Electronics? '), read(Answer30), add_knowledge(electronics, Answer30), nl,
     check_ece_career.
-    /*Why Six Sigma for ECE professionals. How does it help? Six Sigma is a customer-centric manufacturing approach to realizing fewer defects and thus lowering costs and increasing customer satisfaction.
-
-The engineering fraternity is greatly benefited from Six Sigma certification as it helps to break down a task into a much-simplified form. It will provide tools and techniques to standardize work methods thus reducing rework and wastage.*/
-
