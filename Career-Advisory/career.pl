@@ -24,12 +24,13 @@ list_branches:-
 welcome:-
     write('Welcome to AI Career Counselor'),nl,nl,
     write('Enter your roll number: '),read(Roll), asserta(getRoll(Roll)),nl,
-    add('Done',[],List),
-    asserta(getList(List)),
+/*    add('Done',[],List),
+    asserta(getList(List)),*/
     write('Please enter your branch from the list.'), nl, list_branches,
     nl,write('Enter number here: '),read(Branch_id),
     refer(Branch_id),
     retractall(likes(_,_)).
+/*    retractall(getList(_)).*/
 
 
 refer(Branch_id):-
