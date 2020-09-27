@@ -156,6 +156,30 @@ check_alternatives_cse :-
 check_alternatives_cse :-
     write('We have analyzed your interests, and made our recommendations. With your current choices, there are no more recommendations for you at this point.All the best!'),nl,nl.
 
+cse_research(GPAcse) :-
+    likes(btpipcse,1),
+    write('You have done research. That is great! We feel, with your experience, you can consider further studies, doing an MS, M.Tech or PhD.'),nl,
+    write('We have a list of following universities providing great opportunities. You can go their website to have a look at their programs.'),nl,
+    (  GPAcse >= 3.6 ->
+            write('	Stanford University	Stanford, CA'),nl,
+            write('	Massachusetts Institute of Technology	Cambridge, MA'),nl,
+            write('	Georgia Institute of Technology-Main Campus	Atlanta, GA'),nl,
+            write('	Columbia University in the City of New York	New York, NY'),nl,nl
+            ;
+       GPAcse >= 3.3 ->
+            write('	Carnegie Mellon University	Pittsburgh, PA'),nl,
+            write('	Cornell University	Ithaca, NY'),nl,
+            write('     University of California-Berkeley	Berkeley, CA'),nl,nl
+            ;
+            write('	Harvard University	Cambridge, MA'),nl,
+            write('	University of Michigan-Ann Arbor	Ann Arbor, MI'),nl,
+            write('	Northwestern University	Evanson, IL'),nl,nl
+    ).
+
+cse_research(GPAcse) :-
+    likes(btpipcse,0),
+    write('You have not done any research. No problem! We still have other recommendations!'),nl,nl.
+
 
 cse :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
@@ -168,6 +192,9 @@ cse :-
     write('Would you say you have good decision-making skills? '), read(Answer7), add_knowledge(dec_making, Answer7), nl,
     write('Would you say you have the ability to communicate the Big Picture? '), read(Answer8), add_knowledge(big_pic, Answer8), nl,
     write('Do you like doing market research? '), read(Answer9), add_knowledge(market_research, Answer9), nl,
+    write('Have you done any IP or BTP? '), read(Answer90), add_knowledge(btpipcse, Answer90), nl,
+    write('What is your GPA? '), read(GPAcse), nl,
+    cse_research(GPAcse),
     check_cse_career(List),
     check_alternatives_cse,
     printlist(List),nl.
@@ -212,6 +239,31 @@ check_alternatives_csd :-
 check_alternatives_csd :-
     write('Thank you for your answers! Based on your answers we have made our recommendations. There are no further recommendations with the options you have chosen. All the best!'),nl.
 
+csd_research(GPAcsd) :-
+    likes(btpipcsd,1),
+    write('You have done research. That is great! We feel, with your experience, you can consider further studies, doing an MS, M.Tech or PhD.'),nl,
+    write('We have a list of following universities providing great opportunities. You can go their website to have a look at their programs.'),nl,
+    (  GPAcsd >= 3.6 ->
+            write('1	Yale University	New Haven, CT'),nl,
+            write('2	Rhode Island School of Design	Providence , RI'),nl,
+            write('3	North Carolina State University	Raleigh, NC'),nl,
+            write('4	California Institute of the Arts	Valencia, CA'),nl,nl
+            ;
+       GPAcsd >= 3.3 ->
+            write('5	Maryland Institute College of Art	Baltimore, MD'),nl,
+            write('6	Boston University	Boston, MA'),nl,
+            write('7	Carnegie Mellon University	Pittsburgh, PA'),nl,nl
+            ;
+            write('8	Savannah College of Art and Design	Savannah, GA'),nl,
+            write('9	Cranbrook Academy of Art	Bloomfield Hills, MI'),nl,
+            write('10	Art Center College of Design	Pasadena, CA'),nl,nl
+    ).
+
+
+csd_research(GPAcsd) :-
+    likes(btpipcsd,0),
+    write('You have not done any research. No problem! We still have other recommendations!'),nl,nl.
+
 
 csd :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
@@ -224,6 +276,9 @@ csd :-
     write('Do you like talking to users? '), read(Answer16),  add_knowledge(talk_to_user, Answer16), nl,
     write('Do you like doing market research? '), read(Answer17), add_knowledge(market_research, Answer17), nl,
     write('Do you like gaming? '), read(Answer18), add_knowledge(gaming, Answer18), nl,
+    write('Have you done any IP or BTP? '), read(Answer91), add_knowledge(btpipcsd, Answer91), nl,
+    write('What is your GPA? '), read(GPAcsd), nl,
+    csd_research(GPAcsd),
     check_csd_career(List_csd),
     check_alternatives_csd,
     printlist(List_csd),nl.
@@ -238,6 +293,33 @@ check_csss_career :-
     write('3. Data Architect: Data Architects ensure the complete and successful building and integration of data systems and all of their components. With careful architecture, they ensure the implementation, organization, and reliability of those systems.'), nl,
     write('4. Human-Centered Machine Learning Designer: Human-Centered Machine Learning Designer develops various systems that can perform Human Centered Machine Learning based on information processing and pattern recognition. This allows the machine to “learn” the preferences of individual humans.'), nl.
 
+
+csss_research(GPAcsss) :-
+    likes(btpipcsss,1),
+    write('You have done research. That is great! We feel, with your experience, you can consider further studies, doing an MS, M.Tech or PhD.'),nl,
+    write('We have a list of following universities providing great opportunities. You can go their website to have a look at their programs.'),nl,
+    (  GPAcsss >= 3.6 ->
+            write(' Princeton University'),nl,
+            write(' Harvard University'),nl,
+            write(' University of Chicago'),nl,
+            write(' Columbia University in the City of New York'),nl,nl
+            ;
+       GPAcsss >= 3.3 ->
+            write(' University of Pennsylvania'),nl,
+            write(' California Institute of Technology'),nl,
+            write(' Johns Hopkins University'),nl,nl
+            ;
+            write(' Northwestern University'),nl,
+            write(' Cornell University'),nl,
+            write(' Brown University'),nl,nl
+    ).
+
+
+csss_research(GPAcsss) :-
+    likes(btpipcsss,0),
+    write('You have not done any research. No problem! We still have other recommendations!'),nl,nl.
+
+
 csss :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
     write('Do you like logical reasoning? '), read(Answer19), add_knowledge(logical, Answer19), nl,
@@ -246,7 +328,11 @@ csss :-
     write('Do you like data collection? '), read(Answer22),  add_knowledge(data_collection, Answer22), nl,
     write('Do you think about solutions from economic, societal, and environment contexts? '), read(Answer23), add_knowledge(context, Answer23),nl,
     write('Do you like doing Data Analytics? '), read(Answer24), add_knowledge(data_analyst, Answer24), nl,
+    write('Have you done any IP or BTP? '), read(Answer93), add_knowledge(btpipcsss, Answer93), nl,
+    write('What is your GPA? '), read(GPAcsss), nl,
+    csss_research(GPAcsss),
     check_csss_career.
+
 
 check_ece_career :-
     likes(electronics,0),nl,
@@ -269,6 +355,32 @@ check_ece_career :-
     write('1. Mechatronics: Mechatronics is the field of study integrating mechanical and electronics principles onto a single device. Industry 4.0 is already here and it is transforming the way companies are automating their business process.'), nl,
     write('2. Robotic Processes Engineer: Robots can do tasks precisely like humans without human intervention. Now, most of the companies are turning their focus towards robots rather than humans to perform specific jobs just to reduce their expenses and to increase productivity.'), nl.
 
+ece_research(GPAece) :-
+    likes(btpipece,1),
+    write('You have done research. That is great! We feel, with your experience, you can consider further studies, doing an MS, M.Tech or PhD.'),nl,
+    write('We have a list of following universities providing great opportunities. You can go their website to have a look at their programs.'),nl,
+    (  GPAece >= 3.6 ->
+            write(' Massachusetts Institute of Technology'),nl,
+            write(' Stanford University'),nl,
+            write(' University of California—Berkeley'),nl,
+            write(' University of Illinois—Urbana-Champaign'),nl,nl
+            ;
+       GPAece >= 3.3 ->
+            write(' California Institute of Technology'),nl,
+            write(' Georgia Institute of Technology'),nl,
+            write(' University of Michigan—Ann Arbor'),nl,nl
+            ;
+            write(' Carnegie Mellon University'),nl,
+            write(' Princeton University'),nl,
+            write(' Cornell University'),nl,nl
+    ).
+
+
+ece_research(GPAece) :-
+    likes(btpipece,0),
+    write('You have not done any research. No problem! We still have other recommendations!'),nl,nl.
+
+
 ece :-
     write('We will ask you a set of questions, answer them 0 for No, 1 for Yes'), nl,
     write('Do you like debugging code? '), read(Answer25), add_knowledge(debug, Answer25), nl,
@@ -278,4 +390,7 @@ ece :-
     write('Do you like analysis, synthesis, and modification of signals? '), read(Answer28), add_knowledge(signals, Answer28), nl,
     write('Do you like physics? '), read(Answer29), add_knowledge(physics, Answer29), nl,
     write('Do you enjoy Electronics? '), read(Answer30), add_knowledge(electronics, Answer30), nl,
+    write('Have you done any IP or BTP? '), read(Answer94), add_knowledge(btpipece, Answer94), nl,
+    write('What is your GPA? '), read(GPAece), nl,
+    ece_research(GPAece),
     check_ece_career.
