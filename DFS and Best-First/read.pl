@@ -5,6 +5,9 @@
 :- use_module(library(apply)).
 :- use_module(library(csv)).
 
+checkn:-
+  edge(X,Y,Z),
+  write(X), write(Y), write(Z),nl.
 
 rows_to_lists(Rows, Lists):-
   maplist(row_to_list, Rows, Lists).
@@ -38,7 +41,7 @@ ite(Citynames, [[City|D]|Ta]):-
     write("after create_facts"),nl,
     ite(Citynames, Ta).
 
-get_rows_data(Lists):-
+get_rows_data:-
   csv_read_file("D:\\Myinterests\\Sem7\\AI\\Prolog\\DFS and Best-First\\roaddistance1.csv", Rows, []),
   rows_to_lists(Rows, Lists),
   cities(Lists, Citynames, Data),
@@ -47,5 +50,5 @@ get_rows_data(Lists):-
   write("Going to ITE"),nl,
   ite(Citynames, Data),
   write("checking"),
-  edge('Vishakapatnam', 'Delhi', P), write(P).
+  checkn.
 
