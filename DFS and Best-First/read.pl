@@ -39,7 +39,7 @@ ite(Citynames, [[City|D]|Ta]):-
     ite(Citynames, Ta).
 
 get_rows_data(Lists):-
-  csv_read_file("E:\\Downloads\\roaddistance1.csv", Rows, []),
+  csv_read_file("D:\\Myinterests\\Sem7\\AI\\Prolog\\DFS and Best-First\\roaddistance1.csv", Rows, []),
   rows_to_lists(Rows, Lists),
   cities(Lists, Citynames, Data),
 %  print(Data),
