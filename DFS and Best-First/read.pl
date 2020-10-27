@@ -52,3 +52,14 @@ get_rows_data:-
   write("checking"),
   checkn.
 
+solve(Node, Solution) :-
+  depthfirst([], Node, Solution).
+
+depthfirst(Path, Node, [Node|Path]) :-
+  goal(Node).
+
+depthfirst(Path, Node, Sol) :-
+  not(member(Node1, Path)),
+  depthfirst([Node|Path], Node1, Sol).
+
+
