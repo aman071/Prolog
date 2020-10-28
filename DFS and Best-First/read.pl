@@ -4,11 +4,15 @@
 
 :- use_module(library(apply)).
 :- use_module(library(csv)).
+:- dynamic edge/3.
 
 checkn:-
   edge(Y,'Agartala',Z),
 %  write(X),
   write(Y), write(Z),nl.
+
+%edge(Same, Same, _):-
+%  write("Same").
 
 rows_to_lists(Rows, Lists):-
   maplist(row_to_list, Rows, Lists).
@@ -63,6 +67,7 @@ depthfirst(Path, Node, [Node|Path]) :-
 
 depthfirst(Path, Node, Sol) :-
   edge(Node1, Node, Cost),
+  Node1 \=Node,
   not(member(Node1, Path)),
   depthfirst([Node|Path], Node1, Sol).
 
