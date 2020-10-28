@@ -6,8 +6,9 @@
 :- use_module(library(csv)).
 
 checkn:-
-  edge(X,Y,Z),
-  write(X), write(Y), write(Z),nl.
+  edge(Y,'Agartala',Z),
+%  write(X),
+  write(Y), write(Z),nl.
 
 rows_to_lists(Rows, Lists):-
   maplist(row_to_list, Rows, Lists).
@@ -26,19 +27,18 @@ cities([H|T], Citynames, Data):-
 
 create_facts([],City,[]).
 create_facts([C1|F], City, [G|H]):-
-    write("in create_facts"),nl,
-    write(C1),write(G),nl,
+%    write("in create_facts"),nl,
+%    write(C1),write(G),nl,
     asserta(edge(C1,City,G)),
     create_facts(F, City, H).
 
 ite(Citynames, []).
 ite(Citynames, [[City|D]|Ta]):-
-    write("In ITE"),nl,
-    print(City),
-%    nl,
-    print(D),
+%    write("In ITE"),nl,
+%    print(City),nl,
+%    print(D),
     create_facts(Citynames,City, D),
-    write("after create_facts"),nl,
+%    write("after create_facts"),nl,
     ite(Citynames, Ta).
 
 get_rows_data:-
@@ -50,7 +50,10 @@ get_rows_data:-
   write("Going to ITE"),nl,
   ite(Citynames, Data),
   write("checking"),
-  checkn.
+  assert(goal('Ahmedabad')),
+%  checkn,
+  solve('Agartala', Sol), nl, write(Sol),
+  nl.
 
 solve(Node, Solution) :-
   depthfirst([], Node, Solution).
@@ -59,7 +62,16 @@ depthfirst(Path, Node, [Node|Path]) :-
   goal(Node).
 
 depthfirst(Path, Node, Sol) :-
+  edge(Node1, Node, Cost),
   not(member(Node1, Path)),
   depthfirst([Node|Path], Node1, Sol).
+
+
+
+
+
+
+
+
 
 
