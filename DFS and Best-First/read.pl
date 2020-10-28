@@ -51,7 +51,7 @@ get_rows_data:-
   cities(Lists, Citynames, Data),
 %  print(Data),
   nl,
-  write("Going to ITE"),nl,
+%  write("Going to ITE"),nl,
   ite(Citynames, Data),
   write("checking"),
   assert(goal('Ahmedabad')),
@@ -60,16 +60,16 @@ get_rows_data:-
   nl.
 
 solve(Node, Solution) :-
-  depthfirst([], Node, Solution).
+  dfs([], Node, Solution).
 
-depthfirst(Path, Node, [Node|Path]) :-
+dfs(Path, Node, [Node|Path]) :-
   goal(Node).
 
-depthfirst(Path, Node, Sol) :-
-  edge(Node1, Node, Cost),
-  Node1 \=Node,
-  not(member(Node1, Path)),
-  depthfirst([Node|Path], Node1, Sol).
+dfs(Path, Node, Sol) :-
+  edge(Neighbor, Node, Cost),
+  Neighbor \=Node,
+  not(member(Neighbor, Path)),
+  dfs([Node|Path], Neighbor, Sol).
 
 
 
